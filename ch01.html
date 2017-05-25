@@ -1,0 +1,48 @@
+<html>
+<head>
+	
+<script type="text/javascript">
+
+// writing a javascript function
+function hello() 
+{
+var msg = "Hello, World!";
+document.open();
+document.write(msg);
+document.close();
+}
+
+// passing arguments to a function
+function func1()
+{
+	var name= "Prithviraj"
+	var surname ="Mane"
+	document.write("My name is" + name + surname)
+}
+
+function func2(x){
+	// func1();
+	// document.write("and i love " + x)
+	alert("i love " + x)
+}
+
+
+// passing multiple arguments to a function
+function func3(x,y){
+	alert(x + " is better than " + y)
+}
+
+
+// func2("india");	
+// func2("BAngalore");
+// func2("pune as well");		
+// func3("apple","nokia")
+</script>
+</head>
+
+<body >
+<button onclick="func1()">click me</button>
+
+</body>
+
+</html>
