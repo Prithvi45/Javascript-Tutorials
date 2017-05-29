@@ -1,0 +1,55 @@
+<html>
+<head>
+<title>Javascript Tutorials- if/else statements,Nesting</title>	
+<script type="text/javascript">
+var a=2;
+var b=3;
+
+// > < != ==
+if (a == b){
+	document.write("a>b")
+}
+else
+{
+	document.write("b>a")
+}
+
+// Nesting
+
+function nest()
+{
+	var first = "bucky"
+	var last ="roberts"
+	if (first=="bucky")
+	{
+		if (last=="roberts")
+		{
+			document.write(first + " " + last)
+		}
+	}
+	
+}
+
+
+function nest2()
+{
+ var first = "bucky"
+ var last ="roberts"
+ if ((first=="bucky") && (last=="roberts"))
+ {
+ 	document.write(first + " " + last)
+ }
+
+}
+// nest();
+nest2();
+
+</script>
+</head>
+
+<body >
+
+
+</body>
+
+</html>
