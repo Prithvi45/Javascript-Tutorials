@@ -1,0 +1,32 @@
+<html>
+<head>
+
+	<title>Javascript Tutorials - Methods to an objects (functions)</title>
+	<script type="text/javascript">
+
+	function student(name,age)
+	{
+		this.name = name;
+		this.age = age;
+		this.WillRetire = yearsleft;
+	}
+    
+    function yearsleft()
+    {
+    	var left = 65 - this.age;
+    	return left;
+    } 
+
+    var prithvi = new student("prithviraj Mane", 24);
+    var prithv = new student("prithviraj Mane", 24);
+
+    // document.write(prithvi.name +' '+ 'is' + ' '+ prithvi.age  )
+
+	</script>
+	</head>
+	<body>
+		<script type="text/javascript">
+		document.write(prithvi.WillRetire())
+		</script>
+	</body>
+</html>
