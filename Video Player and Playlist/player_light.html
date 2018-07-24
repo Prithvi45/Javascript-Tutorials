@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Player</title>
+	  <meta charset="utf-8">
+	  <meta name="viewport" content="width=device-width, initial-scale=1">
+	  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	  <link rel="stylesheet" type="text/css" href="./css/player_light.css">
+	  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+<body style="background-color: #F9FAF5;">
+
+	<div class="container" style="margin-top: 50px;">
+		<div class="clearfix;"></div>
+		<div class="row" style="background-color: #fff; border-radius: 12px; box-shadow: 0px 0 2px #dddddd !important">
+			
+			<div class="col-sm-8 col-xs-12">
+				<div class="wrapper">
+					<iframe src="https://player.vimeo.com/video/59777392" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe> 
+				</div>
+			</div>
+
+			<div class="col-sm-4 col-xs-12 playlist_container" style="padding-left: 0px;">
+				<div id="playlist">
+					<ul>
+						<li class="playlist_item" id="250022279">
+							<div>
+								<span style="float: left;"><img class="video_thumbnail" src="./media/campus.png"></span>
+								<h5>Campus to Corporate</h5>
+								<h6 class="video_id">250022279</h6>
+							</div>
+						</li>
+						<li class="playlist_item" id="59777392">
+							<div>
+								<span style="float: left;"><img class="video_thumbnail" src="./media/video_new_york.png"></span>
+								<h5>Vimeo made in new york</h5>
+								<h6 class="video_id">59777392</h6>
+							</div>
+						</li>
+						<li class="playlist_item" id="76979871">
+							<div>
+								<span style="float: left;"><img class="video_thumbnail" src="./media/new_vimeo.png"></span>
+								<h5>All new vimeo for videos</h5>
+								<h6 class="video_id">76979871</h6>
+							</div>
+						</li>
+						<li class="playlist_item" id="263976841">
+							<div>
+								<span style="float: left;"><img class="video_thumbnail" src="./media/sanderson.png"></span>
+								<h5>Sanderson to Brackettville</h5>
+								<h6 class="video_id">263976841</h6>
+							</div>
+						</li>
+						<li class="playlist_item" id="263034256">
+							<div>
+								<span style="float: left;"><img class="video_thumbnail" src="./media/vale_of_cashmere.png"></span>
+								<h5>The Vale of Cashmere</h5>
+								<h6 class="video_id">263034256</h6>
+							</div>
+						</li>
+						<li class="playlist_item" id="263665518">
+							<div>
+								<span style="float: left;"><img class="video_thumbnail" src="./media/two_snails.png"></span>
+								<h5>Two Snails Set Off</h5>
+								<h6 class="video_id">263665518</h6>
+							</div>
+						</li>
+						<li class="playlist_item" id="263043936">
+							<div>
+								<span style="float: left;"><img class="video_thumbnail" src="./media/fry_day.png"></span>
+								<h5>Fry Day</h5>
+								<h6 class="video_id">263043936</h6>
+							</div>
+						</li>
+						<li class="playlist_item" id="263304806">
+							<div>
+								<span style="float: left;"><img class="video_thumbnail" src="./media/barcelona.png"></span>
+								<h5>Barcelona</h5>
+								<h6 class="video_id">263304806</h6>
+							</div>
+						</li>
+					</ul>
+				</div>
+			</div>
+
+		</div>
+	</div>
+
+<script>
+	//When the page loads completely, we'll set the first video in the playlist and scroll it to the top
+	$(function() {
+		firstVideo(59777392);
+    	scrollVideoToTop();
+	});
+
+	//When a video from playlist is clicked then make it active and load that video in player
+	$("li").click(function(){
+		$("li.active").removeClass('active');
+		$(this).addClass('active');
+	    var index = $(this).index();
+	    var id = $(this).attr('id');
+	    console.log(index + " "+ id);
+
+		loadVideo($('.active').attr('id'));
+	});
+</script>
+
+<script src="https://player.vimeo.com/api/player.js"></script>
+
+<script>
+    var iframe = document.querySelector('iframe');
+    var player = new Vimeo.Player(iframe);
+
+    player.on('play', function() {
+        console.log('played the video!');
+    });
+
+    player.getVideoId().then(function(id) {
+	    // id = the video id
+	    console.log('id:', id);
+	}).catch(function(error) {
+	    // an error occurred
+    });
+
+    player.getVideoTitle().then(function(title) {
+        console.log('title:', title);
+    });
+
+    player.on('ended', function() {
+    console.log('ended the video!');
+    console.log("Next Video_Id " + nextVideoId());
+    alert('Video completed');
+    loadVideo(nextVideoId());
+    });
+</script>
+
+
+<script>
+	function firstVideo(video_id){
+		$("li.active").removeClass('active');
+		var first = $("li[id='"+ video_id +"']").addClass('active');
+		console.log("Position in list: " + first.index() + " Id: " + first.attr('id'));
+	}
+
+	function nextVideoId(){
+		if ($('.active').next().length) {
+			var next_id = $('.active').next().attr('id');
+			return next_id;
+		} else {
+			return $('.active').attr('id');
+		}
+	}
+	function loadVideo(next_id){
+		player.loadVideo(next_id).then(function(id) {
+	    // the video successfully loaded
+	    console.log(next_id + ' video loaded !');
+		$("li.active").removeClass('active');
+		$("li[id='"+ next_id +"']").addClass('active')
+	    scrollVideoToTop();
+	    }).catch(function(error) {
+	    switch (error.name) {
+	        case 'TypeError':
+	            // the id was not a number
+	            break;
+
+	        default:
+	            // some other error occurred
+	            break;
+	        }
+	    });
+	}
+
+	function scrollVideoToTop() {
+    	var container = $('#playlist'),
+	    scrollTo = $('.active');
+	    if (scrollTo.length) {
+		    container.animate({scrollTop: scrollTo.offset().top - container.offset().top + container.scrollTop()});
+		}
+	}
+</script>
+</body>
+</html>
